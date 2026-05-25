@@ -2,6 +2,7 @@
 
 import { getProducts } from "@/service/productService";
 import { useState, useEffect } from "react";
+import Menu from "@/components/Menu/Menu";
 
 const page = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -16,12 +17,8 @@ const page = () => {
   }, []);
 
   return (
-    <div>
-      {products.map((products) => (
-        <div key={products.id}>
-          <h2>{products.name}</h2>
-        </div>
-      ))}
+    <div className="flex-1">
+      <Menu />
     </div>
   );
 };
