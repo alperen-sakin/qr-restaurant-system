@@ -1,10 +1,24 @@
+"use client";
+
 import Menu from "@/components/Menu/Menu";
-import React from "react";
+import { getProducts } from "@/service/productService";
+import { useEffect, useState } from "react";
 
 const MenuPage = () => {
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <main className="flex-1">
-      <Menu />
+      <Menu pruducts={products} />
     </main>
   );
 };
