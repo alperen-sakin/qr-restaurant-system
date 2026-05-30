@@ -25,7 +25,7 @@ const Menu = ({ products }: MenuProps) => {
         onCategoryChange={setActiveCategory}
       />
 
-      <div className="grid grid-cols-2 gap-4 mt-3 mb-4">
+      <div className="grid grid-cols-2 gap-4 mt-4 mb-4">
         {filteredProducts.map((product) => (
           <MenuCard
             key={product.id}
