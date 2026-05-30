@@ -1,4 +1,5 @@
 "use client";
+
 import { Product } from "@/service/productService";
 import { useState } from "react";
 import MenuCard from "../MenuCard/MenuCard";
