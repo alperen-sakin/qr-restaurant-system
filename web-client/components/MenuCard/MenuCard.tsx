@@ -1,5 +1,5 @@
+import Image from "next/image";
 import { Plus } from "lucide-react";
-import React from "react";
 
 const MenuCard = ({
   title,
@@ -13,8 +13,17 @@ const MenuCard = ({
   image: string;
 }) => {
   return (
-    <div className="border border-gray-300 rounded-lg overflow-hidden flex flex-col h-full shadow-sm">
-      <img src={image} alt={title} className="w-full h-48 object-cover" />
+    <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm shadow-slate-200/50">
+      <div className="relative h-48 w-full">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          unoptimized
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
 
       <div className="p-4 flex flex-col flex-1">
         <h3 className="text-lg font-bold text-primary">{title}</h3>

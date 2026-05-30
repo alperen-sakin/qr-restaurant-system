@@ -15,7 +15,7 @@ const CategoryTabs = ({
   onCategoryChange,
 }: CategoryTabsProps) => {
   return (
-    <div className="flex overflow-x-auto gap-2 p-4 mt-4 mb-4 no-scrollbar">
+    <div className="flex overflow-x-auto gap-2 p-4 mt-2 mb-4 no-scrollbar">
       {categories.map((category) => (
         <button
           key={category.id}

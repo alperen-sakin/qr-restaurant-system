@@ -4,18 +4,18 @@ import { useState } from "react";
 import CategoryTabs from "../CategoryTabs/CategoryTabs";
 import { CATEGORIES } from "@/constants";
 import MenuCard from "../MenuCard/MenuCard";
+import type { Product } from "@/service/productService";
 
 type MenuProps = {
-  pruducts: any[];
+  products: Product[];
 };
 
-const Menu = ({ pruducts }: MenuProps) => {
+const Menu = ({ products }: MenuProps) => {
   const [activeCategory, setActiveCategory] = useState("appetizers");
 
-  const filteredProducts =
-    activeCategory === "appetizers"
-      ? pruducts.filter((product) => product.category === "appetizers")
-      : pruducts.filter((product) => product.category === activeCategory);
+  const filteredProducts = products.filter(
+    (product) => product.category === activeCategory,
+  );
 
   return (
     <div>
@@ -25,7 +25,7 @@ const Menu = ({ pruducts }: MenuProps) => {
         onCategoryChange={setActiveCategory}
       />
 
-      <div className="grid grid-cols-2 gap-4 mt-4 mb-4">
+      <div className="grid grid-cols-2 gap-4 mt-3 mb-4">
         {filteredProducts.map((product) => (
           <MenuCard
             key={product.id}

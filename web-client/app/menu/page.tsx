@@ -1,11 +1,11 @@
 "use client";
 
 import Menu from "@/components/Menu/Menu";
-import { getProducts } from "@/service/productService";
+import { getProducts, type Product } from "@/service/productService";
 import { useEffect, useState } from "react";
 
 const MenuPage = () => {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,7 +18,7 @@ const MenuPage = () => {
 
   return (
     <main className="flex-1">
-      <Menu pruducts={products} />
+      <Menu products={products} />
     </main>
   );
 };

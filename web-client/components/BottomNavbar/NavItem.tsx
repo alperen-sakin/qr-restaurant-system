@@ -23,7 +23,7 @@ const NavItem = ({ title, icon: Icon, href }: NavItemProps) => {
         <>
           <motion.div
             layoutId="nav-light"
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-full bg-linear-to-b from-primary/20 to-transparent rounded-t-xl pointer-events-none"
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-full bg-gradient-to-b from-primary/20 to-transparent rounded-t-xl pointer-events-none"
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           />
 
