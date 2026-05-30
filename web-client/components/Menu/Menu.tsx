@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CategoryTabs from "../CategoryTabs/CategoryTabs";
 import { CATEGORIES } from "@/constants";
+import MenuCard from "../MenuCard/MenuCard";
 
 type MenuProps = {
   pruducts: any[];
@@ -24,12 +25,15 @@ const Menu = ({ pruducts }: MenuProps) => {
         onCategoryChange={setActiveCategory}
       />
 
-      <div>
+      <div className="grid grid-cols-2 gap-4 mt-4 mb-4">
         {filteredProducts.map((product) => (
-          <div key={product.id}>
-            <h3>{product.name}</h3>
-            <p>{product.category}</p>
-          </div>
+          <MenuCard
+            key={product.id}
+            title={product.name}
+            description={product.description}
+            price={product.price}
+            image={product.imageUrl}
+          />
         ))}
       </div>
     </div>
