@@ -1,7 +1,11 @@
-import React from "react";
+import Cart from "@/components/Cart/Cart";
 
 const page = () => {
-  return <div className="flex-1">Cart</div>;
+  return (
+    <div className="flex-1">
+      <Cart />
+    </div>
+  );
 };
 
 export default page;

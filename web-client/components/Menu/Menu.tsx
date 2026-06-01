@@ -29,6 +29,7 @@ const Menu = ({ products }: MenuProps) => {
         {filteredProducts.map((product) => (
           <MenuCard
             key={product.id}
+            id={product.id}
             title={product.name}
             description={product.description}
             price={product.price}
