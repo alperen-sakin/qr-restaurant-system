@@ -66,7 +66,7 @@ const CartItem = ({ id, name, price, quantity, imageUrl }: CartItemProps) => {
           </button>
         </div>
 
-        <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-3 flex flex-row justify-between items-center gap-4 ">
           <span className="text-lg font-semibold text-primary">
             ${(price * quantity).toFixed(2)}
           </span>

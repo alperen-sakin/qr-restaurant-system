@@ -45,7 +45,7 @@ const Search = ({ products }: MenuProps) => {
           No dishes match your search. Try a different keyword.
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4 mt-4 mb-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 mt-4 mb-4">
           {filteredProducts.map((product) => (
             <MenuCard
               id={product.id}
