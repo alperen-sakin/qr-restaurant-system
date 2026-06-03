@@ -1,4 +1,6 @@
+"use client";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type PriceBoxProps = {
   subtotal: number;
@@ -6,6 +8,7 @@ type PriceBoxProps = {
 };
 
 const PriceBox = ({ subtotal, taxRate = 0.1 }: PriceBoxProps) => {
+  const router = useRouter();
   const tax = subtotal * taxRate;
   const total = subtotal + tax;
 
@@ -24,7 +27,10 @@ const PriceBox = ({ subtotal, taxRate = 0.1 }: PriceBoxProps) => {
         <span>${total.toFixed(2)}</span>
       </div>
 
-      <button className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark">
+      <button
+        onClick={() => router.push("/checkout")}
+        className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark"
+      >
         Confirm Order
         <ArrowRight className="w-5 h-5" />
       </button>
