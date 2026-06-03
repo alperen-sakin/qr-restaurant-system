@@ -10,6 +10,8 @@ export type CartItem = {
 
 type CartStore = {
   cartItems: CartItem[];
+  tableNumber: string | null;
+  setTableNumber: (table: string) => void;
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
@@ -18,7 +20,8 @@ type CartStore = {
 
 export const useCartStore = create<CartStore>((set) => ({
   cartItems: [],
-
+  tableNumber: null,
+  setTableNumber: (table) => set({ tableNumber: table }),
   addToCart: (newItem) =>
     set((state) => {
       const existingItem = state.cartItems.find(
