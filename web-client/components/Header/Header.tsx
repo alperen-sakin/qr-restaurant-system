@@ -1,6 +1,25 @@
+"use client";
+
+import { useCartStore } from "@/store/useCartStore";
 import { Utensils } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const Header = () => {
+  const searcgParams = useSearchParams();
+  const tableFromUrl = searcgParams.get("table");
+
+  const tableNumber = useCartStore((state) => state.tableNumber);
+  const setTableNumber = useCartStore((state) => state.setTableNumber);
+
+  useEffect(() => {
+    if (tableFromUrl) {
+      setTableNumber(tableFromUrl);
+    }
+  }, [tableFromUrl, setTableNumber]);
+
+  if (!tableNumber) return null;
+
   return (
     <header className="sticky top-0 z-20 bg-surface/80 w-full border-b border-borderColor backdrop-blur-sm px-4 py-4">
       <div className="flex items-center justify-between gap-4">
@@ -10,7 +29,7 @@ const Header = () => {
         </div>
 
         <div className="bg-table text-sm font-bold text-primary p-2 rounded-full border border-borderColor">
-          <h2>TABLE 12</h2>
+          <h2>TABLE {tableNumber}</h2>
         </div>
       </div>
     </header>
