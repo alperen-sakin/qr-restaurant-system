@@ -1,5 +1,6 @@
 "use client";
 
+import { createOrder } from "@/service/orderService";
 import { useCartStore } from "@/store/useCartStore";
 import { useRouter } from "next/navigation";
 
@@ -12,17 +13,21 @@ const CheckoutPage = () => {
     0,
   );
 
-  const handleConfirmOrder = () => {
+  const handleConfirmOrder = async () => {
     if (!tableNumber) {
       alert("Table number is missing. Please go back and select a table.");
       return;
     }
 
-    console.log("Order Details:", { tableNumber, cartItems, total });
+    try {
+      await createOrder(tableNumber, cartItems, total);
 
-    alert(`Order for table ${tableNumber} has been placed successfully!`);
-    clearCart();
-    router.push("/menu");
+      alert(`Order for table ${tableNumber} has been placed successfully!`);
+      clearCart();
+      router.push("/menu");
+    } catch (error) {
+      alert("There was an error placing your order. Please try again.");
+    }
   };
 
   if (cartItems.length === 0) {
