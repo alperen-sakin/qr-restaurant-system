@@ -83,6 +83,7 @@ dependencies {
 
         // Detekt Formatting
         detektPlugins(libs.detekt.formatting)
+    ksp(libs.kotlinx.metadata.jvm)
 }
 
 detekt {

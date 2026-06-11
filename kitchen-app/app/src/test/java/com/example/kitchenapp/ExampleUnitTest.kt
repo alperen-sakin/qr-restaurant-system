@@ -14,8 +14,8 @@ class ExampleUnitTest {
         assertEquals(FOUR, TWO + TWO)
     }
 
-    companion object{
-        const val FOUR= 4
+    companion object {
+        const val FOUR = 4
         const val TWO = 2
     }
 }
