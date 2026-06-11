@@ -61,28 +61,29 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    implementation(libs.material.icons.extended)
 
     // Room
-        implementation(libs.room.runtime)
-        implementation(libs.room.ktx)
-        ksp(libs.room.compiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
-        // Hilt
-        implementation(libs.hilt.android)
-        ksp(libs.hilt.compiler)
-        implementation(libs.hilt.navigation.compose)
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
 
-        // Firebase
-        implementation(platform(libs.firebase.bom))
-        implementation(libs.firebase.firestore)
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
 
-        // Navigation & UI & ViewModel
-        implementation(libs.navigation.compose)
-        implementation(libs.material.icons.extended)
-        implementation(libs.lifecycle.viewmodel.compose)
+    // Navigation & UI & ViewModel
+    implementation(libs.navigation.compose)
+    implementation(libs.material.icons.extended)
+    implementation(libs.lifecycle.viewmodel.compose)
 
-        // Detekt Formatting
-        detektPlugins(libs.detekt.formatting)
+    // Detekt Formatting
+    detektPlugins(libs.detekt.formatting)
     ksp(libs.kotlinx.metadata.jvm)
 }
 
