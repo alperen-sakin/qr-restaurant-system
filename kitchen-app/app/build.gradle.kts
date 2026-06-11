@@ -1,6 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.detekt)
 }
 
 android {
@@ -55,4 +60,34 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+
+    // Room
+        implementation(libs.room.runtime)
+        implementation(libs.room.ktx)
+        ksp(libs.room.compiler)
+
+        // Hilt
+        implementation(libs.hilt.android)
+        ksp(libs.hilt.compiler)
+        implementation(libs.hilt.navigation.compose)
+
+        // Firebase
+        implementation(platform(libs.firebase.bom))
+        implementation(libs.firebase.firestore)
+
+        // Navigation & UI & ViewModel
+        implementation(libs.navigation.compose)
+        implementation(libs.material.icons.extended)
+        implementation(libs.lifecycle.viewmodel.compose)
+
+        // Detekt Formatting
+        detektPlugins(libs.detekt.formatting)
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    autoCorrect = true
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
 }
