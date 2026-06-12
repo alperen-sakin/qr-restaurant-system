@@ -16,4 +16,14 @@ val PerfectGray = Color(0xffA1A1A1)
 val HotOrange = Color(0xffFF6900)
 val BrownishBlack = Color(0xff2F1F15)
 val CarbonFiber = Color(0xff242424)
+val CarbonFiber2 = Color(0xff262626)
 val ShockingBlack = Color(0xff111111)
+val DodgerBlue = Color(0xff2B7FFF)
+val Mirage = Color(0xff131C29)
+
+val CoffeeBean = Color(0xff29190F)
+
+val Malachite = Color(0xff00C950)
+val Aztec = Color(0xff0F2317)
+
+val EerieBlack = Color(0xff1A1A1A)

@@ -25,6 +25,7 @@ import com.example.kitchenapp.presentation.navigation.Navigation
 import com.example.kitchenapp.ui.theme.CarbonFiber
 import com.example.kitchenapp.ui.theme.PerfectGray
 import com.example.kitchenapp.ui.theme.ShockingBlack
+import com.example.kitchenapp.ui.theme.TrueBlack
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -41,14 +42,15 @@ fun HomeScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(color = ShockingBlack)
+                .background(color = TrueBlack)
         ) {
             SideNavbar(navController = navController)
             Column {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(60.dp),
+                        .height(60.dp)
+                        .background(color = ShockingBlack),
                     contentAlignment = Alignment.Center
                 ) {
                     val currentDateTime = java.time.LocalDateTime.now()
