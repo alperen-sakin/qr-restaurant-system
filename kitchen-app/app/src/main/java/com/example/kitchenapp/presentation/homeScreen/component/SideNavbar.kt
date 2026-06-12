@@ -114,8 +114,6 @@ fun SideNavbar(navController: NavController) {
 @Composable
 private fun LogoSection() {
     Row(
-        modifier = Modifier
-            .padding(top = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
