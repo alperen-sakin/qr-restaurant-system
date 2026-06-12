@@ -2,6 +2,7 @@ package com.example.kitchenapp.presentation.homeScreen.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,10 +24,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.kitchenapp.R
 import com.example.kitchenapp.presentation.homeScreen.constants.NavigationConstants.SideNavItems
 import com.example.kitchenapp.ui.theme.BrownishBlack
 import com.example.kitchenapp.ui.theme.HotOrange
@@ -42,12 +45,7 @@ fun SideNavbar(navController: NavController) {
             .fillMaxHeight(),
         containerColor = MatteBlack,
         header = {
-            Text(
-                text = "Menu",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = PerfectGray
-            )
+            LogoSection()
         }
     ) {
         Column(
@@ -98,5 +96,37 @@ fun SideNavbar(navController: NavController) {
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun LogoSection() {
+    Row(
+        modifier = Modifier
+            .padding(top = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .background(color = HotOrange, shape = MaterialTheme.shapes.medium)
+                .padding(8.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.outline_chef_hat_24),
+                contentDescription = "Logo",
+                modifier = Modifier
+                    .size(28.dp)
+                    .align(Alignment.Center),
+                tint = Color.White
+            )
+        }
+        Spacer(modifier = Modifier.width(12.dp))
+
+        Text(
+            text = "Kitchen App",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
     }
 }
