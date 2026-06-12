@@ -14,14 +14,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kitchenapp.presentation.ordersScreen.components.OrderStatusSection
+import com.example.kitchenapp.presentation.ordersScreen.constants.DummyData
 import com.example.kitchenapp.presentation.ordersScreen.constants.OrderStatusList
+import com.example.kitchenapp.presentation.ordersScreen.uiState.OrderSectionUiState
 import com.example.kitchenapp.ui.theme.PerfectGray
 
 @Composable
 fun OrdersScreen(modifier: Modifier = Modifier) {
+    val newOrders = DummyData.filter { it.status == "New" }
+    val preparingOrders = DummyData.filter { it.status == "Preparing" }
+    val readyOrders = DummyData.filter { it.status == "Ready" }
+
     Column(
         modifier = modifier
-            .padding(20.dp)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         OrderTitle()
 
@@ -29,14 +36,28 @@ fun OrdersScreen(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top
         ) {
-            OrderStatusList.forEachIndexed { index, item ->
+            OrderStatusList.forEach { item ->
                 OrderStatusSection(
                     modifier = Modifier.weight(1f),
-                    orderStatusTitle = item.title,
-                    primaryColor = item.primaryColor,
-                    secondaryColor = item.secondaryColor
+                    uiState = OrderSectionUiState(
+                        orderStatusTitle = item.title,
+                        primaryColor = item.primaryColor,
+                        secondaryColor = item.secondaryColor,
+                        orders = when (item.title) {
+                            "New Orders" -> newOrders
+                            "Preparing" -> preparingOrders
+                            "Ready" -> readyOrders
+                            else -> emptyList()
+                        },
+                        orderCount = when (item.title) {
+                            "New Orders" -> newOrders.size
+                            "Preparing" -> preparingOrders.size
+                            "Ready" -> readyOrders.size
+                            else -> 0
+                        }
+                    ),
                 )
             }
         }

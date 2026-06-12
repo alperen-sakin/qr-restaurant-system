@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -30,6 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kitchenapp.domain.model.OrderItem
+import com.example.kitchenapp.presentation.ordersScreen.uiState.OrdersBoxUIState
 import com.example.kitchenapp.ui.theme.CarbonFiber
 import com.example.kitchenapp.ui.theme.CarbonFiber2
 import com.example.kitchenapp.ui.theme.EerieBlack
@@ -38,7 +39,9 @@ import com.example.kitchenapp.ui.theme.MatteBlack
 import com.example.kitchenapp.ui.theme.PerfectGray
 
 @Composable
-fun OrderBox() {
+fun OrderBox(
+    uiState: OrdersBoxUIState
+) {
     Column(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(16.dp))
@@ -52,7 +55,7 @@ fun OrderBox() {
             .drawBehind {
                 val strokeWidth = 10.dp.toPx()
                 drawLine(
-                    color = Color.Red,
+                    brush = uiState.leftBorderColor,
                     start = Offset(0f, 0f),
                     end = Offset(1f, size.width),
                     strokeWidth = strokeWidth
@@ -62,16 +65,23 @@ fun OrderBox() {
         verticalArrangement = Arrangement.spacedBy(16.dp)
 
     ) {
-        OrderBoxHeader()
+        OrderBoxHeader(
+            tableNumber = uiState.tableNumber,
+            date = uiState.date,
+            orderNumber = uiState.orderNumber
+        )
 
-        ProductBox()
+        ProductBox(orderItems = uiState.orderItems)
 
-        CheckSection()
+        CheckSection(cost = uiState.cost)
     }
 }
 
 @Composable
-fun CheckSection(modifier: Modifier = Modifier) {
+private fun CheckSection(
+    modifier: Modifier = Modifier,
+    cost: Double
+) {
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -79,7 +89,7 @@ fun CheckSection(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "$12.0",
+            text = "$$cost",
             color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
@@ -115,7 +125,10 @@ fun CheckSection(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ProductBox(modifier: Modifier = Modifier) {
+private fun ProductBox(
+    modifier: Modifier = Modifier,
+    orderItems: List<OrderItem>
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -128,46 +141,34 @@ private fun ProductBox(modifier: Modifier = Modifier) {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(12.dp)
-                    .background(color = HotOrange, shape = CircleShape)
-            )
-            Text(
-                text = "2x Burger",
-                color = Color.White,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-            )
-        }
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(12.dp)
-                    .background(color = HotOrange, shape = CircleShape)
-            )
-            Text(
-                text = "2x Burger",
-                color = Color.White,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-            )
+        orderItems.forEach { item ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(12.dp)
+                        .background(color = HotOrange, shape = CircleShape)
+                )
+                Text(
+                    text = "${item.quantity}x ${item.name}",
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun OrderBoxHeader() {
+private fun OrderBoxHeader(
+    tableNumber: String,
+    date: String,
+    orderNumber: String,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -177,14 +178,14 @@ private fun OrderBoxHeader() {
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = "ORD-001",
+                text = "ORD-$orderNumber",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp
             )
 
             Text(
-                text = "Alperen Sakin",
+                text = "Table $tableNumber",
                 color = PerfectGray,
                 fontSize = 14.sp
             )
@@ -208,7 +209,7 @@ private fun OrderBoxHeader() {
                 tint = Color.White
             )
             Text(
-                text = "10:30",
+                text = date,
                 color = Color.White,
                 fontSize = 14.sp
             )

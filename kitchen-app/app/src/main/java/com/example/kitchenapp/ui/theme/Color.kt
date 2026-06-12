@@ -1,5 +1,6 @@
 package com.example.kitchenapp.ui.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -27,3 +28,7 @@ val Malachite = Color(0xff00C950)
 val Aztec = Color(0xff0F2317)
 
 val EerieBlack = Color(0xff1A1A1A)
+
+val NewGradient = Brush.verticalGradient(listOf(DodgerBlue, DodgerBlue, Color.Transparent, Color.Transparent))
+val PreparingGradient = Brush.verticalGradient(listOf(HotOrange, HotOrange, Color.Transparent, Color.Transparent))
+val ReadyGradient = Brush.verticalGradient(listOf(Malachite, Malachite, Color.Transparent, Color.Transparent))

@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -18,19 +20,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kitchenapp.presentation.ordersScreen.uiState.OrderSectionUiState
+import com.example.kitchenapp.presentation.ordersScreen.uiState.OrdersBoxUIState
 import com.example.kitchenapp.ui.theme.CarbonFiber
+import com.example.kitchenapp.ui.theme.NewGradient
 import com.example.kitchenapp.ui.theme.PerfectGray
+import com.example.kitchenapp.ui.theme.PreparingGradient
+import com.example.kitchenapp.ui.theme.ReadyGradient
 import com.example.kitchenapp.ui.theme.ShockingBlack
 
 @Composable
 fun OrderStatusSection(
     modifier: Modifier = Modifier,
-    orderStatusTitle: String,
-    primaryColor: Color,
-    secondaryColor: Color
+    uiState: OrderSectionUiState
 ) {
     Column(
         modifier = modifier
@@ -45,9 +51,10 @@ fun OrderStatusSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         OrderStatusHeader(
-            orderStatusTitle = orderStatusTitle,
-            primary = primaryColor,
-            secondary = secondaryColor
+            orderStatusTitle = uiState.orderStatusTitle,
+            primary = uiState.primaryColor,
+            secondary = uiState.secondaryColor,
+            orderCount = uiState.orderCount
         )
         Spacer(
             modifier = Modifier
@@ -56,9 +63,31 @@ fun OrderStatusSection(
                 .fillMaxWidth()
         )
 
-        NoOrderBox()
-
-        OrderBox()
+        if (uiState.orders.isEmpty()) {
+            NoOrderBox()
+        } else {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(uiState.orders) { item ->
+                    OrderBox(
+                        uiState = OrdersBoxUIState(
+                            leftBorderColor = when (item.status) {
+                                "New" -> NewGradient
+                                "Preparing" -> PreparingGradient
+                                "Ready" -> ReadyGradient
+                                else -> SolidColor(Color.Transparent)
+                            },
+                            cost = item.totalCost,
+                            tableNumber = item.tableNumber,
+                            date = item.date,
+                            orderNumber = item.id.toString(),
+                            orderItems = item.orderItems
+                        ),
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -90,7 +119,8 @@ private fun OrderStatusHeader(
     modifier: Modifier = Modifier,
     orderStatusTitle: String,
     primary: Color,
-    secondary: Color
+    secondary: Color,
+    orderCount: Int
 ) {
     Row(
         modifier = modifier
@@ -128,7 +158,7 @@ private fun OrderStatusHeader(
 
         ) {
             Text(
-                text = "0",
+                text = orderCount.toString(),
                 color = primary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
