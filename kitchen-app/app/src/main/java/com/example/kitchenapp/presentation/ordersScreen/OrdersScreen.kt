@@ -66,6 +66,9 @@ fun OrdersScreen(
                             else -> 0
                         }
                     ),
+                    onOrderUpdate = { orderId, currentStatus ->
+                        viewModel.updateOrderStatus(orderId, currentStatus)
+                    }
                 )
             }
         }

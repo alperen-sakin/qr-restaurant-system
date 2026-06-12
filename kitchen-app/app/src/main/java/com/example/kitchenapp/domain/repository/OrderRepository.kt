@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface OrderRepository {
     fun getOrders(): Flow<List<Order>>
+    suspend fun updateOrderStatus(orderId: String, newStatus: String)
 }

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -40,7 +39,8 @@ import com.example.kitchenapp.ui.theme.PerfectGray
 
 @Composable
 fun OrderBox(
-    uiState: OrdersBoxUIState
+    uiState: OrdersBoxUIState,
+    onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -73,16 +73,18 @@ fun OrderBox(
 
         ProductBox(orderItems = uiState.orderItems)
 
-        CheckSection(cost = uiState.cost, buttonText = uiState.buttonText, buttonColor = uiState.buttonColor)
+        CheckSection(
+            onClick = onClick,
+            uiState = uiState
+        )
     }
 }
 
 @Composable
 private fun CheckSection(
     modifier: Modifier = Modifier,
-    cost: Double,
-    buttonText: String ,
-    buttonColor: Color
+    uiState: OrdersBoxUIState,
+    onClick: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -91,16 +93,16 @@ private fun CheckSection(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "$$cost",
+            text = "$${uiState.cost}",
             color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
         )
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = onClick,
             colors = ButtonDefaults.buttonColors(
-                containerColor = buttonColor,
+                containerColor = uiState.buttonColor,
                 contentColor = Color.White
             ),
             shape = MaterialTheme.shapes.large,
@@ -110,14 +112,14 @@ private fun CheckSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = buttonText,
+                    text = uiState.buttonText,
                     color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                 )
 
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                    imageVector = uiState.buttonIcon,
                     contentDescription = null,
                     tint = Color.White
                 )

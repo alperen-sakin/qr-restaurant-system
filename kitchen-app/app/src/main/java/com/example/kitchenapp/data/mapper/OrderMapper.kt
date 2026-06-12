@@ -18,9 +18,8 @@ fun OrderDto.toDomain(): Order {
     val formattedDate = createdAt?.toDate()?.let { date ->
         formatter.format(date)
     } ?: ""
-    val displayOrderNumber = id.takeLast(ORDER_NUMBER_LENGTH).uppercase(getDefault())
     return Order(
-        id = displayOrderNumber,
+        id = id,
         tableNumber = tableNumber,
         status = status,
         orderItems = items.map { it.toDomain() },

@@ -20,25 +20,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kitchenapp.presentation.ordersScreen.constants.toButtonColor
+import com.example.kitchenapp.presentation.ordersScreen.constants.toButtonIcon
+import com.example.kitchenapp.presentation.ordersScreen.constants.toButtonText
+import com.example.kitchenapp.presentation.ordersScreen.constants.toLeftBorderColor
 import com.example.kitchenapp.presentation.ordersScreen.uiState.OrderSectionUiState
 import com.example.kitchenapp.presentation.ordersScreen.uiState.OrdersBoxUIState
 import com.example.kitchenapp.ui.theme.CarbonFiber
-import com.example.kitchenapp.ui.theme.HotOrange
-import com.example.kitchenapp.ui.theme.Malachite
-import com.example.kitchenapp.ui.theme.NewGradient
 import com.example.kitchenapp.ui.theme.PerfectGray
-import com.example.kitchenapp.ui.theme.PreparingGradient
-import com.example.kitchenapp.ui.theme.ReadyGradient
 import com.example.kitchenapp.ui.theme.ShockingBlack
 
 @Composable
 fun OrderStatusSection(
     modifier: Modifier = Modifier,
-    uiState: OrderSectionUiState
+    uiState: OrderSectionUiState,
+    onOrderUpdate: (String, String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -65,59 +64,39 @@ fun OrderStatusSection(
                 .fillMaxWidth()
         )
 
-        if (uiState.orders.isEmpty()) {
-            NoOrderBox()
-        } else {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(uiState.orders) { item ->
-                    OrderBox(
-                        uiState = OrdersBoxUIState(
-                            leftBorderColor = when (item.status) {
-                                "pending" -> NewGradient
-                                "preparing" -> PreparingGradient
-                                "ready" -> ReadyGradient
-                                else -> SolidColor(Color.Transparent)
-                            },
-                            cost = item.totalCost,
-                            tableNumber = item.tableNumber,
-                            date = item.date,
-                            orderNumber = item.orderNumber,
-                            orderItems = item.orderItems,
-                            buttonText = when (item.status) {
-                                "pending" -> {
-                                    "Prepar"
-                                }
+        Content(uiState, onOrderUpdate)
+    }
+}
 
-                                "preparing" -> {
-                                    "Ready"
-                                }
+@Composable
+private fun Content(
+    uiState: OrderSectionUiState,
+    onOrderUpdate: (String, String) -> Unit
+) {
+    if (uiState.orders.isEmpty()) {
+        NoOrderBox()
+    } else {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(uiState.orders) { item ->
+                OrderBox(
+                    uiState = OrdersBoxUIState(
+                        leftBorderColor = item.status.toLeftBorderColor,
+                        cost = item.totalCost,
+                        tableNumber = item.tableNumber,
+                        date = item.date,
+                        orderNumber = item.orderNumber,
+                        orderItems = item.orderItems,
+                        buttonText = item.status.toButtonText,
+                        buttonColor = item.status.toButtonColor,
+                        buttonIcon = item.status.toButtonIcon
 
-                                "ready" -> {
-                                    "Served"
-                                }
-
-                                else -> ""
-                            },
-                            buttonColor = when (item.status) {
-                                "pending" -> {
-                                    HotOrange
-                                }
-
-                                "preparing" -> {
-                                    Malachite
-                                }
-
-                                "ready" -> {
-                                    Malachite
-                                }
-
-                                else -> Color.Transparent
-                            }
-                        ),
-                    )
-                }
+                    ),
+                    onClick = {
+                        onOrderUpdate(item.id, item.status)
+                    }
+                )
             }
         }
     }
@@ -188,7 +167,7 @@ private fun OrderStatusHeader(
                 .background(color = secondary, shape = CircleShape)
                 .padding(vertical = 1.dp, horizontal = 10.dp),
 
-            ) {
+        ) {
             Text(
                 text = orderCount.toString(),
                 color = primary,

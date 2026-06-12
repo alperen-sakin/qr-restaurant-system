@@ -37,5 +37,15 @@ class OrderScreenViewModel @Inject constructor(
         }
     }
 
-
+    fun updateOrderStatus(orderId: String, currentStatus: String) {
+        val newStatus = when (currentStatus) {
+            "pending" -> "preparing"
+            "preparing" -> "ready"
+            "ready" -> "served"
+            else -> return
+        }
+        viewModelScope.launch {
+            repository.updateOrderStatus(orderId, newStatus)
+        }
+    }
 }
