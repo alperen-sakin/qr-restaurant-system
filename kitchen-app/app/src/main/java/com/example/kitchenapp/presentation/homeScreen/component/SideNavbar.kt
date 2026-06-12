@@ -23,6 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +34,7 @@ import androidx.navigation.NavController
 import com.example.kitchenapp.R
 import com.example.kitchenapp.presentation.homeScreen.constants.NavigationConstants.SideNavItems
 import com.example.kitchenapp.ui.theme.BrownishBlack
+import com.example.kitchenapp.ui.theme.CarbonFiber
 import com.example.kitchenapp.ui.theme.HotOrange
 import com.example.kitchenapp.ui.theme.MatteBlack
 import com.example.kitchenapp.ui.theme.PerfectGray
@@ -42,7 +45,16 @@ fun SideNavbar(navController: NavController) {
 
     NavigationRail(
         modifier = Modifier
-            .fillMaxHeight(),
+            .fillMaxHeight()
+            .drawBehind {
+                val strokeWidth = 2.dp.toPx()
+                drawLine(
+                    color = CarbonFiber,
+                    start = Offset(size.width, 0f),
+                    end = Offset(size.width, size.height),
+                    strokeWidth = strokeWidth
+                )
+            },
         containerColor = MatteBlack,
         header = {
             LogoSection()
