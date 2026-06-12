@@ -14,9 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kitchenapp.presentation.ordersScreen.components.OrderStatusSection
+import com.example.kitchenapp.presentation.ordersScreen.constants.OrderStatusList
 import com.example.kitchenapp.ui.theme.PerfectGray
-
-private const val THREE = 3
 
 @Composable
 fun OrdersScreen(modifier: Modifier = Modifier) {
@@ -32,8 +31,13 @@ fun OrdersScreen(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            repeat(THREE) {
-                OrderStatusSection(modifier = Modifier.weight(1f))
+            OrderStatusList.forEachIndexed { index, item ->
+                OrderStatusSection(
+                    modifier = Modifier.weight(1f),
+                    orderStatusTitle = item.title,
+                    primaryColor = item.primaryColor,
+                    secondaryColor = item.secondaryColor
+                )
             }
         }
     }

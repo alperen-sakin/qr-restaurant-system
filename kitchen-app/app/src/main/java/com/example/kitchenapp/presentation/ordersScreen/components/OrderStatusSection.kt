@@ -22,13 +22,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kitchenapp.ui.theme.CarbonFiber
-import com.example.kitchenapp.ui.theme.DodgerBlue
-import com.example.kitchenapp.ui.theme.Mirage
 import com.example.kitchenapp.ui.theme.PerfectGray
 import com.example.kitchenapp.ui.theme.ShockingBlack
 
 @Composable
-fun OrderStatusSection(modifier: Modifier = Modifier) {
+fun OrderStatusSection(
+    modifier: Modifier = Modifier,
+    orderStatusTitle: String,
+    primaryColor: Color,
+    secondaryColor: Color
+) {
     Column(
         modifier = modifier
             .border(
@@ -41,7 +44,11 @@ fun OrderStatusSection(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        OrderStatusHeader()
+        OrderStatusHeader(
+            orderStatusTitle = orderStatusTitle,
+            primary = primaryColor,
+            secondary = secondaryColor
+        )
         Spacer(
             modifier = Modifier
                 .height(2.dp)
@@ -79,7 +86,12 @@ private fun NoOrderBox(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun OrderStatusHeader(modifier: Modifier = Modifier) {
+private fun OrderStatusHeader(
+    modifier: Modifier = Modifier,
+    orderStatusTitle: String,
+    primary: Color,
+    secondary: Color
+) {
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -93,11 +105,11 @@ private fun OrderStatusHeader(modifier: Modifier = Modifier) {
             Box(
                 modifier = Modifier
                     .size(12.dp)
-                    .background(color = Color.Red, shape = CircleShape)
+                    .background(color = primary, shape = CircleShape)
             )
 
             Text(
-                text = "New Order",
+                text = orderStatusTitle,
                 color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
@@ -108,16 +120,16 @@ private fun OrderStatusHeader(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .border(
                     width = 1.dp,
-                    color = DodgerBlue.copy(alpha = 0.5f),
+                    color = primary.copy(alpha = 0.5f),
                     shape = CircleShape
                 )
-                .background(color = Mirage, shape = CircleShape)
+                .background(color = secondary, shape = CircleShape)
                 .padding(vertical = 1.dp, horizontal = 10.dp),
 
         ) {
             Text(
                 text = "0",
-                color = DodgerBlue,
+                color = primary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
             )
