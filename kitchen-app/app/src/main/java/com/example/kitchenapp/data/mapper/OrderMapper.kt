@@ -25,7 +25,8 @@ fun OrderDto.toDomain(): Order {
         status = status,
         orderItems = items.map { it.toDomain() },
         totalCost = total,
-        date = formattedDate
+        date = formattedDate,
+        orderNumber = orderNumber
     )
 }
 

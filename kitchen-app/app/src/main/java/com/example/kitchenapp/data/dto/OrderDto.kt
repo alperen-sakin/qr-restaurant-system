@@ -8,6 +8,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 data class OrderDto(
     @DocumentId
     val id: String = "",
+    val orderNumber: Int = 0,
     val tableNumber: String = "",
     val status: String = "",
     val items: List<OrderItemDto> = emptyList(),

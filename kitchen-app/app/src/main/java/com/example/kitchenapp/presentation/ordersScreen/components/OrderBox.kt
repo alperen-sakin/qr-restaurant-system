@@ -73,14 +73,16 @@ fun OrderBox(
 
         ProductBox(orderItems = uiState.orderItems)
 
-        CheckSection(cost = uiState.cost)
+        CheckSection(cost = uiState.cost, buttonText = uiState.buttonText, buttonColor = uiState.buttonColor)
     }
 }
 
 @Composable
 private fun CheckSection(
     modifier: Modifier = Modifier,
-    cost: Double
+    cost: Double,
+    buttonText: String ,
+    buttonColor: Color
 ) {
     Row(
         modifier = modifier
@@ -98,7 +100,7 @@ private fun CheckSection(
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(
-                containerColor = HotOrange,
+                containerColor = buttonColor,
                 contentColor = Color.White
             ),
             shape = MaterialTheme.shapes.large,
@@ -108,7 +110,7 @@ private fun CheckSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Check",
+                    text = buttonText,
                     color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
@@ -167,7 +169,7 @@ private fun ProductBox(
 private fun OrderBoxHeader(
     tableNumber: String,
     date: String,
-    orderNumber: String,
+    orderNumber: Int,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),

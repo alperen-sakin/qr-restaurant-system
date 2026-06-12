@@ -1,6 +1,7 @@
 package com.example.kitchenapp.presentation.ordersScreen.uiState
 
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import com.example.kitchenapp.domain.model.OrderItem
 
 data class OrdersBoxUIState(
@@ -8,6 +9,8 @@ data class OrdersBoxUIState(
     val cost: Double,
     val tableNumber: String,
     val date: String,
-    val orderNumber: String,
-    val orderItems: List<OrderItem>
+    val orderNumber: Int,
+    val orderItems: List<OrderItem>,
+    val buttonText: String ,
+    val buttonColor: Color
 )
