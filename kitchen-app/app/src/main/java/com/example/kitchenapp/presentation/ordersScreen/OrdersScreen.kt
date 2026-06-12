@@ -7,23 +7,31 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.kitchenapp.presentation.ordersScreen.components.OrderStatusSection
-import com.example.kitchenapp.presentation.ordersScreen.constants.DummyData
 import com.example.kitchenapp.presentation.ordersScreen.constants.OrderStatusList
 import com.example.kitchenapp.presentation.ordersScreen.uiState.OrderSectionUiState
+import com.example.kitchenapp.presentation.ordersScreen.vieModel.OrderScreenViewModel
 import com.example.kitchenapp.ui.theme.PerfectGray
 
 @Composable
-fun OrdersScreen(modifier: Modifier = Modifier) {
-    val newOrders = DummyData.filter { it.status == "New" }
-    val preparingOrders = DummyData.filter { it.status == "Preparing" }
-    val readyOrders = DummyData.filter { it.status == "Ready" }
+fun OrdersScreen(
+    modifier: Modifier = Modifier,
+    viewModel: OrderScreenViewModel = hiltViewModel()
+) {
+    val state by viewModel.state.collectAsState()
+
+    val newOrders = state.orders.filter { it.status == "pending" }
+    val preparingOrders = state.orders.filter { it.status == "preparing" }
+    val readyOrders = state.orders.filter { it.status == "ready" }
 
     Column(
         modifier = modifier
