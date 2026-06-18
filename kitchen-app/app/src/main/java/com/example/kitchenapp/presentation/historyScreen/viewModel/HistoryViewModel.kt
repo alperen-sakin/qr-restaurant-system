@@ -30,7 +30,7 @@ class HistoryViewModel @Inject constructor(
 
     private fun fetchCompletedOrders() {
         viewModelScope.launch {
-            repository.getOrders().collect { orderList ->
+            repository.getCompletedOrders().collect { orderList ->
                 _state.update {
                     it.copy(
                         compLastedOrders = orderList

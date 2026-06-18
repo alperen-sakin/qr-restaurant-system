@@ -38,7 +38,7 @@ class OrderRepositoryImpl @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getCompletedOrders(): Flow<List<Order>> = callbackFlow {
         val subscription = firestore.collection("orders")
-            .whereEqualTo("status", "completed")
+            .whereEqualTo("status", "served")
             .addSnapshotListener { snapshots, error ->
                 if (error != null) {
                     close(error)
