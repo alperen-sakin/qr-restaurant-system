@@ -28,6 +28,7 @@ val Malachite = Color(0xff00C950)
 val Aztec = Color(0xff0F2317)
 
 val EerieBlack = Color(0xff1A1A1A)
+val ExtremeBlack = Color(0xff101010)
 
 val NewGradient = Brush.verticalGradient(listOf(DodgerBlue, DodgerBlue, Color.Transparent, Color.Transparent))
 val PreparingGradient = Brush.verticalGradient(listOf(HotOrange, HotOrange, Color.Transparent, Color.Transparent))

@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.kitchenapp.presentation.historyScreen.components.HistoryDataSection
 import com.example.kitchenapp.presentation.historyScreen.components.HistoryHeader
 
 @Composable
@@ -22,7 +23,7 @@ fun HistoryScreen(modifier: Modifier = Modifier) {
             .padding(20.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         HistoryHeader(
             searchValue = searchValue,
@@ -30,5 +31,7 @@ fun HistoryScreen(modifier: Modifier = Modifier) {
                 searchValue = it
             }
         )
+
+        HistoryDataSection()
     }
 }
