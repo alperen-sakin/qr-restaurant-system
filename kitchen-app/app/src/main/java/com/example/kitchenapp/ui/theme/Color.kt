@@ -32,6 +32,8 @@ val Aztec = Color(0xff0F2317)
 val EerieBlack = Color(0xff1A1A1A)
 val ExtremeBlack = Color(0xff101010)
 val DarkGrey = Color(0xff404040)
+val RedAura = Color(0xffFF6467)
+val HighlighterRed = Color(0xffFB2C36)
 
 val NewGradient = Brush.verticalGradient(listOf(DodgerBlue, DodgerBlue, Color.Transparent, Color.Transparent))
 val PreparingGradient = Brush.verticalGradient(listOf(HotOrange, HotOrange, Color.Transparent, Color.Transparent))
