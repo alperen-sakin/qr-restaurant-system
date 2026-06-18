@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,6 +20,8 @@ import com.example.kitchenapp.presentation.inventoryScreen.constants.getStockSta
 import com.example.kitchenapp.presentation.inventoryScreen.uiState.InventoryItemCardUIState
 import com.example.kitchenapp.presentation.inventoryScreen.viewModel.InventoryViewModel
 
+const val GRID_SPAN_COUNT = 4
+
 @Composable
 fun InventoryScreen(
     modifier: Modifier = Modifier,
@@ -28,7 +33,7 @@ fun InventoryScreen(
             .padding(20.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         InventoryHeader(
             onAddClick = { /*TODO*/ },
@@ -36,20 +41,31 @@ fun InventoryScreen(
             searchValue = state.searchValue
         )
 
-        val status = getStockStatus(quantity = 0, minStockLevel = 10)
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(GRID_SPAN_COUNT),
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
 
-        InventorItemCard(
-            state = InventoryItemCardUIState(
-                imageUrl = "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-                quantity = 1,
-                itemName = "domates",
-                itemNumber = 4,
-                unit = "kg",
-                icon = status.icon,
-                statusTextColor = status.primaryColor,
-                statusText = status.status,
-                statusBackgroundColor = status.secondaryColor
-            )
-        )
+        ) {
+            items(state.inventoryItems) { item ->
+                val status = getStockStatus(item.quantity, item.minStockLevel)
+
+                InventorItemCard(
+                    state = InventoryItemCardUIState(
+                        imageUrl = item.imgUrl,
+                        itemNumber = item.itemNumber,
+                        itemName = item.itemName,
+                        quantity = item.quantity,
+                        unit = item.unit,
+                        icon = status.icon,
+                        statusText = status.status,
+                        statusTextColor = status.primaryColor,
+                        statusBackgroundColor = status.secondaryColor
+                    ),
+                )
+            }
+        }
     }
 }

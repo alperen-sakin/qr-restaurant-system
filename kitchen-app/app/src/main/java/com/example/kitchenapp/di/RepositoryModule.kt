@@ -1,6 +1,8 @@
 package com.example.kitchenapp.di
 
+import com.example.kitchenapp.data.repository.InventoryRepositoryImpl
 import com.example.kitchenapp.data.repository.OrderRepositoryImpl
+import com.example.kitchenapp.domain.repository.InventoryRepository
 import com.example.kitchenapp.domain.repository.OrderRepository
 import dagger.Binds
 import dagger.Module
@@ -17,4 +19,10 @@ abstract class RepositoryModule {
     abstract fun bindOrderRepository(
         orderRepositoryImpl: OrderRepositoryImpl
     ): OrderRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindInventoryRepository(
+        inventoryRepositoryImpl: InventoryRepositoryImpl
+    ): InventoryRepository
 }

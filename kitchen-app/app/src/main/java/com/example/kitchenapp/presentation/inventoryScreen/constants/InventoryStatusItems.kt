@@ -6,10 +6,7 @@ import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material.icons.filled.ErrorOutline
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.kitchenapp.ui.theme.CoffeeBean
-import com.example.kitchenapp.ui.theme.HighlighterRed
 import com.example.kitchenapp.ui.theme.HotOrange
-import com.example.kitchenapp.ui.theme.LuxuryGreen
 import com.example.kitchenapp.ui.theme.Malachite
 import com.example.kitchenapp.ui.theme.RedAura
 
@@ -22,7 +19,7 @@ sealed class InventoryStatusItems(
     object InStock : InventoryStatusItems(
         status = "In Stock",
         primaryColor = Malachite,
-        secondaryColor = LuxuryGreen.copy(alpha = 0.7f),
+        secondaryColor = Color.Black.copy(alpha = 0.5f),
         icon = Icons.Default.CheckCircleOutline
 
     )
@@ -30,14 +27,14 @@ sealed class InventoryStatusItems(
     object LowStock : InventoryStatusItems(
         status = "Low Stock",
         primaryColor = HotOrange,
-        secondaryColor = CoffeeBean.copy(alpha = 0.7f),
+        secondaryColor = Color.Black.copy(alpha = 0.5f),
         icon = Icons.Default.ErrorOutline
     )
 
     object OutOfStock : InventoryStatusItems(
         status = "Out of Stock",
         primaryColor = RedAura,
-        secondaryColor = HighlighterRed.copy(alpha = 0.1f),
+        secondaryColor = Color.Black.copy(alpha = 0.5f),
         icon = Icons.Default.Cancel
     )
 }
