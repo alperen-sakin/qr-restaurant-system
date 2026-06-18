@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kitchenapp.presentation.historyScreen.uiState.BadgeCellUiState
+import com.example.kitchenapp.presentation.historyScreen.uiState.HistoryItemUIState
 import com.example.kitchenapp.ui.theme.Bush
 import com.example.kitchenapp.ui.theme.DarkGrey
 import com.example.kitchenapp.ui.theme.LuxuryGreen
@@ -35,7 +36,10 @@ private const val DEFAULT_WEIGHT = 1f
 private const val SECONDARY_WEIGHT = 1.5f
 
 @Composable
-fun HistoryItem(modifier: Modifier = Modifier, orderNumber: Int ) {
+fun HistoryItem(
+    modifier: Modifier = Modifier,
+    state: HistoryItemUIState
+) {
     Row(
         modifier = modifier
             .padding(horizontal = 32.dp, vertical = 20.dp)
@@ -45,7 +49,7 @@ fun HistoryItem(modifier: Modifier = Modifier, orderNumber: Int ) {
         IconTextCell(
             modifier = Modifier.weight(DEFAULT_WEIGHT),
             icon = Icons.AutoMirrored.Filled.Assignment,
-            text = "ORD-$orderNumber",
+            text = "ORD-${state.orderNumber}",
             textColor = Color.White,
             fontWeight = FontWeight.Bold
         )
@@ -53,14 +57,14 @@ fun HistoryItem(modifier: Modifier = Modifier, orderNumber: Int ) {
         IconTextCell(
             modifier = Modifier.weight(SECONDARY_WEIGHT),
             icon = Icons.Default.CalendarToday,
-            text = "18 Haz 2026 00:45",
+            text = state.date,
             textColor = PerfectGray,
             fontWeight = FontWeight.Medium
         )
 
         Text(
             modifier = Modifier.weight(DEFAULT_WEIGHT),
-            text = "Table 1",
+            text = "Table ${state.tableNumber}",
             color = PerfectGray,
             fontWeight = FontWeight.Medium,
             fontSize = 16.sp
@@ -69,7 +73,7 @@ fun HistoryItem(modifier: Modifier = Modifier, orderNumber: Int ) {
         BadgeCell(
             modifier = Modifier.weight(DEFAULT_WEIGHT),
             state = BadgeCellUiState(
-                text = "1 Product",
+                text = "${state.productCount} ${if (state.productCount > 1) "Products" else "Product"}",
                 textColor = Color.White,
                 borderColor = Bush,
                 backgroundColor = DarkGrey,
@@ -80,7 +84,7 @@ fun HistoryItem(modifier: Modifier = Modifier, orderNumber: Int ) {
 
         Text(
             modifier = Modifier.weight(DEFAULT_WEIGHT),
-            text = "$18.00",
+            text = "$${state.totalPrice}",
             color = Color.White,
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp

@@ -7,24 +7,19 @@ import com.example.kitchenapp.data.dto.OrderItemDto
 import com.example.kitchenapp.domain.model.Order
 import com.example.kitchenapp.domain.model.OrderItem
 import com.google.firebase.Timestamp
-import java.text.SimpleDateFormat
-import java.util.Locale.getDefault
 
 const val ORDER_NUMBER_LENGTH = 4
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun OrderDto.toDomain(): Order {
-    val formatter = SimpleDateFormat("HH:mm", getDefault())
-    val formattedDate = createdAt?.toDate()?.let { date ->
-        formatter.format(date)
-    } ?: ""
+    val timeInMillis = createdAt?.toDate()?.time ?: System.currentTimeMillis()
     return Order(
         id = id,
         tableNumber = tableNumber,
         status = status,
         orderItems = items.map { it.toDomain() },
         totalCost = total,
-        date = formattedDate,
+        date = timeInMillis,
         orderNumber = orderNumber
     )
 }

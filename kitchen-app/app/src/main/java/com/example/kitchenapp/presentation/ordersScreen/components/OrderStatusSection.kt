@@ -29,6 +29,7 @@ import com.example.kitchenapp.presentation.ordersScreen.constants.toButtonText
 import com.example.kitchenapp.presentation.ordersScreen.constants.toLeftBorderColor
 import com.example.kitchenapp.presentation.ordersScreen.uiState.OrderSectionUiState
 import com.example.kitchenapp.presentation.ordersScreen.uiState.OrdersBoxUIState
+import com.example.kitchenapp.presentation.util.toFormattedTime
 import com.example.kitchenapp.ui.theme.CarbonFiber
 import com.example.kitchenapp.ui.theme.PerfectGray
 import com.example.kitchenapp.ui.theme.ShockingBlack
@@ -85,7 +86,7 @@ private fun Content(
                         leftBorderColor = item.status.toLeftBorderColor,
                         cost = item.totalCost,
                         tableNumber = item.tableNumber,
-                        date = item.date,
+                        date = item.date.toFormattedTime(),
                         orderNumber = item.orderNumber,
                         orderItems = item.orderItems,
                         buttonText = item.status.toButtonText,

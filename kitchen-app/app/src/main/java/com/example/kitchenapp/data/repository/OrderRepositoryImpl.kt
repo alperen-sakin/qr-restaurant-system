@@ -43,7 +43,6 @@ class OrderRepositoryImpl @Inject constructor(
                 if (error != null) {
                     close(error)
                     return@addSnapshotListener
-
                 }
 
                 if (snapshots != null) {
@@ -55,7 +54,6 @@ class OrderRepositoryImpl @Inject constructor(
             }
 
         awaitClose { subscription.remove() }
-
     }
 
     override suspend fun updateOrderStatus(orderId: String, newStatus: String) {

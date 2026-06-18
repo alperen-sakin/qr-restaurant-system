@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kitchenapp.domain.model.Order
 import com.example.kitchenapp.presentation.historyScreen.constants.HistoryDataTitles
+import com.example.kitchenapp.presentation.historyScreen.uiState.HistoryItemUIState
+import com.example.kitchenapp.presentation.util.toFormattedDate
 import com.example.kitchenapp.ui.theme.CarbonFiber
 import com.example.kitchenapp.ui.theme.CarbonFiber2
 import com.example.kitchenapp.ui.theme.ExtremeBlack
@@ -31,8 +33,10 @@ private const val DEFAULT_WEIGHT = 1f
 private const val SECONDARY_WEIGHT = 1.5f
 
 @Composable
-fun HistoryDataSection(modifier: Modifier = Modifier,
-                       compLastedOrders: List<Order>) {
+fun HistoryDataSection(
+    modifier: Modifier = Modifier,
+    compLastedOrders: List<Order>
+) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
@@ -67,12 +71,19 @@ fun HistoryDataSection(modifier: Modifier = Modifier,
             color = CarbonFiber
         )
 
-        LazyColumn() {
-            items(compLastedOrders){item->
-                HistoryItem(orderNumber =item.orderNumber)
+        LazyColumn {
+            items(compLastedOrders) { item ->
+                HistoryItem(
+                    state = HistoryItemUIState(
+                        orderNumber = item.orderNumber,
+                        totalPrice = item.totalCost,
+                        tableNumber = item.tableNumber,
+                        productCount = item.orderItems.size,
+                        date = item.date.toFormattedDate()
+                    ),
+
+                )
             }
         }
-
-
     }
 }

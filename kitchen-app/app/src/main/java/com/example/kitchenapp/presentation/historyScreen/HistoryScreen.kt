@@ -19,8 +19,9 @@ import com.example.kitchenapp.presentation.historyScreen.components.HistoryHeade
 import com.example.kitchenapp.presentation.historyScreen.viewModel.HistoryViewModel
 
 @Composable
-fun HistoryScreen(modifier: Modifier = Modifier,
-                  viewModel: HistoryViewModel = hiltViewModel()
+fun HistoryScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HistoryViewModel = hiltViewModel()
 ) {
     var searchValue by remember { mutableStateOf("") }
 

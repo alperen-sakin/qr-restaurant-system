@@ -7,6 +7,6 @@ data class Order(
     val status: String,
     val orderItems: List<OrderItem>,
     val totalCost: Double,
-    val date: String
+    val date: Long
 
 )
