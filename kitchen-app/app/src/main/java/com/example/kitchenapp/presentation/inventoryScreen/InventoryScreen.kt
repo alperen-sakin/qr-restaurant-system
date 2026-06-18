@@ -1,13 +1,36 @@
 package com.example.kitchenapp.presentation.inventoryScreen
 
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.example.kitchenapp.presentation.inventoryScreen.components.InventoryHeader
+import com.example.kitchenapp.presentation.inventoryScreen.viewModel.InventoryViewModel
 
 @Composable
-fun InventoryScreen(modifier: Modifier = Modifier) {
-    Text(
-        text = "Inventory Screen",
+fun InventoryScreen(
+    modifier: Modifier = Modifier,
+    viewModel: InventoryViewModel = hiltViewModel()
+) {
+    val state by viewModel.state.collectAsState()
+    Column(
         modifier = modifier
-    )
+            .padding(20.dp)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        InventoryHeader(
+            onAddClick = { /*TODO*/ },
+            onSearchValueChange = { viewModel.onSearchValueChange(it) },
+            searchValue = state.searchValue
+        )
+    }
 }
