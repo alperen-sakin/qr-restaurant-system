@@ -35,6 +35,29 @@ class OrderRepositoryImpl @Inject constructor(
         awaitClose { subscription.remove() }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun getCompletedOrders(): Flow<List<Order>> = callbackFlow {
+        val subscription = firestore.collection("orders")
+            .whereEqualTo("status", "completed")
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    close(error)
+                    return@addSnapshotListener
+
+                }
+
+                if (snapshots != null) {
+                    val orders = snapshots.documents.mapNotNull { doc ->
+                        doc.toObject(OrderDto::class.java)?.toDomain()
+                    }
+                    trySend(orders)
+                }
+            }
+
+        awaitClose { subscription.remove() }
+
+    }
+
     override suspend fun updateOrderStatus(orderId: String, newStatus: String) {
         firestore.collection("orders")
             .document(orderId)

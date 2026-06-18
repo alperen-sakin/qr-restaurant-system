@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
@@ -17,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kitchenapp.domain.model.Order
 import com.example.kitchenapp.presentation.historyScreen.constants.HistoryDataTitles
 import com.example.kitchenapp.ui.theme.CarbonFiber
 import com.example.kitchenapp.ui.theme.CarbonFiber2
@@ -28,7 +31,8 @@ private const val DEFAULT_WEIGHT = 1f
 private const val SECONDARY_WEIGHT = 1.5f
 
 @Composable
-fun HistoryDataSection(modifier: Modifier = Modifier) {
+fun HistoryDataSection(modifier: Modifier = Modifier,
+                       compLastedOrders: List<Order>) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
@@ -63,6 +67,12 @@ fun HistoryDataSection(modifier: Modifier = Modifier) {
             color = CarbonFiber
         )
 
-        HistoryItem()
+        LazyColumn() {
+            items(compLastedOrders){item->
+                HistoryItem(orderNumber =item.orderNumber)
+            }
+        }
+
+
     }
 }

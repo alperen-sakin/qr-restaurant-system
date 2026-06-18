@@ -35,7 +35,7 @@ private const val DEFAULT_WEIGHT = 1f
 private const val SECONDARY_WEIGHT = 1.5f
 
 @Composable
-fun HistoryItem(modifier: Modifier = Modifier) {
+fun HistoryItem(modifier: Modifier = Modifier, orderNumber: Int ) {
     Row(
         modifier = modifier
             .padding(horizontal = 32.dp, vertical = 20.dp)
@@ -45,7 +45,7 @@ fun HistoryItem(modifier: Modifier = Modifier) {
         IconTextCell(
             modifier = Modifier.weight(DEFAULT_WEIGHT),
             icon = Icons.AutoMirrored.Filled.Assignment,
-            text = "ORD-005",
+            text = "ORD-$orderNumber",
             textColor = Color.White,
             fontWeight = FontWeight.Bold
         )
