@@ -6,9 +6,6 @@ import com.example.kitchenapp.data.dto.OrderDto
 import com.example.kitchenapp.data.dto.OrderItemDto
 import com.example.kitchenapp.domain.model.Order
 import com.example.kitchenapp.domain.model.OrderItem
-import com.google.firebase.Timestamp
-
-const val ORDER_NUMBER_LENGTH = 4
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun OrderDto.toDomain(): Order {
@@ -31,20 +28,20 @@ fun OrderItemDto.toDomain(): OrderItem {
     )
 }
 
-fun Order.toDto(): OrderDto {
-    return OrderDto(
-        id = id,
-        tableNumber = tableNumber,
-        status = status,
-        items = orderItems.map { it.toDto() },
-        total = totalCost,
-        createdAt = Timestamp.now()
-    )
-}
-
-fun OrderItem.toDto(): OrderItemDto {
-    return OrderItemDto(
-        name = name,
-        quantity = quantity
-    )
-}
+// fun Order.toDto(): OrderDto {
+//    return OrderDto(
+//        id = id,
+//        tableNumber = tableNumber,
+//        status = status,
+//        items = orderItems.map { it.toDto() },
+//        total = totalCost,
+//        createdAt = Timestamp.now()
+//    )
+// }
+//
+// fun OrderItem.toDto(): OrderItemDto {
+//    return OrderItemDto(
+//        name = name,
+//        quantity = quantity
+//    )
+// }
