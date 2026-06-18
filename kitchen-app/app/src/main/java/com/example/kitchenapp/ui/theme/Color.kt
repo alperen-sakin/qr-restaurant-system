@@ -25,10 +25,13 @@ val Mirage = Color(0xff131C29)
 val CoffeeBean = Color(0xff29190F)
 
 val Malachite = Color(0xff00C950)
+val LuxuryGreen = Color(0xff114927)
+val Bush = Color(0xff15291D)
 val Aztec = Color(0xff0F2317)
 
 val EerieBlack = Color(0xff1A1A1A)
 val ExtremeBlack = Color(0xff101010)
+val DarkGrey = Color(0xff404040)
 
 val NewGradient = Brush.verticalGradient(listOf(DodgerBlue, DodgerBlue, Color.Transparent, Color.Transparent))
 val PreparingGradient = Brush.verticalGradient(listOf(HotOrange, HotOrange, Color.Transparent, Color.Transparent))
