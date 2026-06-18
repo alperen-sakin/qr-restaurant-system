@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,9 +21,10 @@ fun HistoryScreen(
     modifier: Modifier = Modifier,
     viewModel: HistoryViewModel = hiltViewModel()
 ) {
-    var searchValue by remember { mutableStateOf("") }
-
     val state by viewModel.state.collectAsState()
+    val filteredOrders = state.compLastedOrders.filter { order ->
+        order.orderNumber.toString().contains(state.searchValue)
+    }
     Column(
         modifier = modifier
             .padding(20.dp)
@@ -34,14 +33,14 @@ fun HistoryScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         HistoryHeader(
-            searchValue = searchValue,
+            searchValue = state.searchValue,
             onSearchValueChange = {
-                searchValue = it
+                viewModel.onSearchValueChange(it)
             }
         )
 
         HistoryDataSection(
-            compLastedOrders = state.compLastedOrders
+            compLastedOrders = filteredOrders
         )
     }
 }

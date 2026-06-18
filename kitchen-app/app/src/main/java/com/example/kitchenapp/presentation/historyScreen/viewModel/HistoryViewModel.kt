@@ -34,4 +34,12 @@ class HistoryViewModel @Inject constructor(
             }
         }
     }
+
+    fun onSearchValueChange(value: String) {
+        _state.update {
+            it.copy(
+                searchValue = value
+            )
+        }
+    }
 }
