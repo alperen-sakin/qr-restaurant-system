@@ -8,8 +8,12 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.unit.dp
@@ -19,11 +23,14 @@ import com.example.kitchenapp.presentation.staffScreen.components.StaffHeader
 import com.example.kitchenapp.presentation.staffScreen.constants.getStaffStatus
 import com.example.kitchenapp.presentation.staffScreen.uiState.StaffCardUIState
 import com.example.kitchenapp.presentation.staffScreen.viewModel.StaffViewModel
+import com.example.kitchenapp.presentation.util.toFormattedDuration
 import com.example.kitchenapp.ui.theme.HotOrange
 import com.example.kitchenapp.ui.theme.Malachite
 import com.example.kitchenapp.ui.theme.RedAura
+import kotlinx.coroutines.delay
 
 private const val GRID_SPAN_COUNT = 3
+private const val ONE_MINUTE = 60000L
 
 @Composable
 fun StaffScreen(
@@ -47,9 +54,25 @@ fun StaffScreen(
 
         ) {
             items(state.staffs) { item ->
+                var currentTime by remember { mutableLongStateOf(System.currentTimeMillis()) }
                 val staffStatus = getStaffStatus(item.status)
 
                 val currentStatus = item.status.lowercase(LocalLocale.current.platformLocale)
+
+                LaunchedEffect(currentStatus) {
+                    if (currentStatus == "working") {
+                        while (true) {
+                            delay(ONE_MINUTE)
+                            currentTime = System.currentTimeMillis()
+                        }
+                    }
+                }
+
+                val displayMillis = if (currentStatus == "working") {
+                    item.workedHoursToday + (currentTime - item.lastClockInTime)
+                } else {
+                    item.workedHoursToday
+                }
                 StaffCard(
                     state = StaffCardUIState(
                         imageUrl = item.imageUrl,
@@ -59,7 +82,7 @@ fun StaffScreen(
                         statusText = staffStatus.statusText,
                         department = item.department,
                         role = item.role,
-                        workedTime = item.workedHoursToday.toString(),
+                        workedTime = displayMillis.toFormattedDuration(),
                         startColor = Malachite,
                         breakColor = HotOrange,
                         endColor = RedAura,
