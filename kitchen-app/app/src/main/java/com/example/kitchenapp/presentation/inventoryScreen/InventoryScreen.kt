@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.kitchenapp.presentation.inventoryScreen.components.InventorItemCard
@@ -28,6 +29,13 @@ fun InventoryScreen(
     viewModel: InventoryViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val filteredInventoryItems = state.inventoryItems.filter { item ->
+        item.itemName.lowercase(LocalLocale.current.platformLocale).contains(
+            state.searchValue.lowercase(
+                LocalLocale.current.platformLocale
+            )
+        )
+    }
     Column(
         modifier = modifier
             .padding(20.dp)
@@ -49,7 +57,7 @@ fun InventoryScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
 
         ) {
-            items(state.inventoryItems) { item ->
+            items(filteredInventoryItems) { item ->
                 val status = getStockStatus(item.quantity, item.minStockLevel)
 
                 InventorItemCard(
