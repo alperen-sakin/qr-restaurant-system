@@ -10,6 +10,12 @@ data class StaffCardUIState(
     val statusText: String,
     val department: String,
     val role: String,
-    val workedTime: String
+    val workedTime: String,
+    val startColor: Color,
+    val breakColor: Color,
+    val endColor: Color,
+    val isStartEnabled: Boolean,
+    val isBreakEnabled: Boolean,
+    val isEndEnabled: Boolean,
 
 )

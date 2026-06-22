@@ -34,7 +34,10 @@ import com.example.kitchenapp.ui.theme.MatteBlack
 @Composable
 fun StaffCard(
     modifier: Modifier = Modifier,
-    state: StaffCardUIState
+    state: StaffCardUIState,
+    onStartClick: () -> Unit,
+    onBreakClick: () -> Unit,
+    onEndClick: () -> Unit
 ) {
     Card(
         modifier = modifier
@@ -52,6 +55,14 @@ fun StaffCard(
             departmentText = state.department,
             roleText = state.role,
             workedTime = state.workedTime
+        )
+
+        ButtonSection(
+            state = state,
+            onStartClick = onStartClick,
+            onBreakClick = onBreakClick,
+            onEndClick = onEndClick,
+
         )
     }
 }

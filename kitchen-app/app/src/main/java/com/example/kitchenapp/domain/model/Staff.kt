@@ -4,7 +4,7 @@ data class Staff(
     val id: String,
     val department: String,
     val imageUrl: String,
-    val lasClockInTime: Double,
+    val lastClockInTime: Long,
     val name: String,
     val role: String,
     val status: String,

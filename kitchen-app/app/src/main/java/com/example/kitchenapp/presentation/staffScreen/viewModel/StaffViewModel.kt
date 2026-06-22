@@ -35,4 +35,55 @@ class StaffViewModel @Inject constructor(
             }
         }
     }
+
+    fun onStartClicked(staffId: String) {
+        viewModelScope.launch {
+            staffRepository.updateStaffStatus(
+                staffId = staffId,
+                newStatus = "working",
+                clockInTime = System.currentTimeMillis()
+
+            )
+        }
+    }
+
+    fun onBreakClicked(staffId: String) {
+        val staff = _state.value.staffs.find { it.id == staffId } ?: return
+
+        val currentTime = System.currentTimeMillis()
+
+        val elapsedMillis = currentTime - staff.lastClockInTime
+
+        val updatedWorkedHoursToday = staff.workedHoursToday + elapsedMillis
+
+        viewModelScope.launch {
+            staffRepository.updateStaffBreak(
+                staffId = staffId,
+                newStatus = "on_break",
+                workedHoursToday = updatedWorkedHoursToday
+            )
+        }
+    }
+
+    fun onEndClicked(staffId: String) {
+        val staff = _state.value.staffs.find { it.id == staffId } ?: return
+
+        // 1. O anki duruma göre süreyi hesapla
+        val updatedWorkedHoursToday = if (staff.status.lowercase() == "working") {
+            val currentTime = System.currentTimeMillis()
+            val elapsedMillis = currentTime - staff.lastClockInTime
+            staff.workedHoursToday + elapsedMillis
+        } else {
+            // Zaten moladaysa, mola tuşuna basıldığında süre hesaba katılmıştı
+            staff.workedHoursToday
+        }
+
+        viewModelScope.launch {
+            staffRepository.updateStaffEnd(
+                staffId = staffId,
+                newStatus = "off_duty", // Mesai dışı durumu
+                workedHoursToday = updatedWorkedHoursToday
+            )
+        }
+    }
 }
