@@ -21,7 +21,7 @@ import com.example.kitchenapp.presentation.inventoryScreen.constants.getStockSta
 import com.example.kitchenapp.presentation.inventoryScreen.uiState.InventoryItemCardUIState
 import com.example.kitchenapp.presentation.inventoryScreen.viewModel.InventoryViewModel
 
-const val GRID_SPAN_COUNT = 4
+private const val GRID_SPAN_COUNT = 4
 
 @Composable
 fun InventoryScreen(

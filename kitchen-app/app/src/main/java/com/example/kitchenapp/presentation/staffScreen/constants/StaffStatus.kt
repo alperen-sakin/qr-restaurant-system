@@ -9,21 +9,25 @@ import com.example.kitchenapp.ui.theme.ManhattanGray
 sealed class StaffStatus(
     val statusColor: Color,
     val secondaryColor: Color,
+    val statusText: String
 ) {
     object OnWorking : StaffStatus(
         statusColor = Malachite,
-        secondaryColor = Malachite.copy(alpha = 0.5f)
+        secondaryColor = Malachite.copy(alpha = 0.15f),
+        statusText = "Working"
     )
 
     object OnBreak : StaffStatus(
         statusColor = HotOrange,
-        secondaryColor = HotOrange.copy(alpha = 0.5f)
+        secondaryColor = HotOrange.copy(alpha = 0.15f),
+        statusText = "On Break"
 
     )
 
     object OnLeave : StaffStatus(
         statusColor = ManhattanGray,
-        secondaryColor = CarbonFiber2
+        secondaryColor = CarbonFiber2.copy(alpha = 0.15f),
+        statusText = "Not Working"
 
     )
 }

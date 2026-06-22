@@ -13,12 +13,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.example.kitchenapp.presentation.inventoryScreen.GRID_SPAN_COUNT
 import com.example.kitchenapp.presentation.staffScreen.components.StaffCard
 import com.example.kitchenapp.presentation.staffScreen.components.StaffHeader
 import com.example.kitchenapp.presentation.staffScreen.constants.getStaffStatus
 import com.example.kitchenapp.presentation.staffScreen.uiState.StaffCardUIState
 import com.example.kitchenapp.presentation.staffScreen.viewModel.StaffViewModel
+
+private const val GRID_SPAN_COUNT = 3
 
 @Composable
 fun StaffScreen(
@@ -46,7 +47,14 @@ fun StaffScreen(
                 StaffCard(
                     state = StaffCardUIState(
                         imageUrl = item.imageUrl,
-                        statusColor = status.statusColor
+                        statusColor = status.statusColor,
+                        secondaryColor = status.secondaryColor,
+                        staffName = item.name,
+                        statusText = status.statusText,
+                        department = item.department,
+                        role = item.role,
+                        workedTime = item.workedHoursToday.toString()
+
                     )
                 )
             }
